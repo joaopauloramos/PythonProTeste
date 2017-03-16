@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+# Classes Abstratas
 class Operacao:
     """ Classe responsavel por definir como calculo deve ser feito"""
     def calcular(self,p1,p2):
@@ -9,6 +10,8 @@ class Calculadora:
     """ Classe Responsavel por obter inputs e efetuar a operacao de acordo com o solicitado"""
     def __init__(self):
         self._operacoes = {}
+        adicao = Adicao()
+        self.adicionar_operacao('+', adicao)
 
     def obter_inputs(self):
         """Deve obter sinal, p1 e p2 retornando os valores nessa ordem"""
@@ -20,16 +23,29 @@ class Calculadora:
         try:
             operacao_escolhida = self._operacoes[sinal]
         except KeyError:
-           raise Exception("Operacao nao suportada")
+            raise Exception('Operacao nao suportada')
         else:
             return operacao_escolhida.calcular(p1,p2)
 
-    def adicionar_operacao(self, operacao):
-        self.operacoes[sinal]=operacao
+    def adicionar_operacao(self,sinal, operacao):
+        self._operacoes[sinal] = operacao
 
-
+# Classes Concretas
 class CalculadoraInfixa(Calculadora):
     def obter_inputs(self):
+        p1= input('Digite o primeiro o numero ')
+        p1 = float(p1)
+        sinal = input('Digite o sinal da operacao: ')
+        p2= input('Digite o primeiro o numero ')
+        p2 = float(p2)
+        return sinal, p1, p2
+
+class Adicao(Operacao):
+    def calcular(self, p1,p2):
+        return p1 + p2
+
+
+
         
 
     
